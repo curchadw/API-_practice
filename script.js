@@ -1,5 +1,5 @@
 async function getCountries(){
-  let url = 'https://restcountries.eu/rest/v2/lang/es'
+  let url = 'https://restcountries.eu/rest/v2/all'
   try{
     let res = await fetch(url);
     return await res.json()
@@ -9,11 +9,12 @@ async function getCountries(){
 }
 
 async function renderCountries(){
-  let countries = getCountries();
-  let html = '';
+  let countries = await getCountries();
+ 
+  let html = ' ';
   countries.forEach(country =>{
     let htmlSeg = `
-    <div class="user">
+    <div class="country">
       <h2>${country.name}</h2>
       <p>${country.capital}</p>
       <p>${country.region}</p>
@@ -21,9 +22,12 @@ async function renderCountries(){
     </div>`;
 
     html += htmlSeg;
-})
 
-let container = document.querySelector('#spot')
+  })
+
+
+
+let container = document.getElementById('spot')
 container.innerHTML = html
 
 }
